@@ -319,10 +319,12 @@ export interface HandleElement extends XYPosition, Dimensions {
 export interface HandleProps {
   type: HandleType;
   position: Position;
+  field?: boolean
   isConnectable?: boolean;
   onConnect?: OnConnectFunc;
   isValidConnection?: (connection: Connection) => boolean;
   id?: ElementId;
+  fieldId?: string
 }
 
 export type NodePosUpdate = {

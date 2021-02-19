@@ -11,10 +11,12 @@ const alwaysValid = () => true;
 
 const Handle: FunctionComponent<HandleProps & Omit<HTMLAttributes<HTMLDivElement>, 'id'>> = ({
   type = 'source',
+
   position = Position.Top,
   isValidConnection = alwaysValid,
   isConnectable = true,
   id,
+  field,
   onConnect,
   children,
   className,

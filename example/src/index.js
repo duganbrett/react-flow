@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { BrowserRouter as Router, Route, Switch, withRouter } from 'react-router-dom';
-
+import Burst from './Burst'
 import Overview from './Overview';
 import Basic from './Basic';
 import CustomNode from './CustomNode';
@@ -28,6 +28,10 @@ import './index.css';
 const routes = [
   {
     path: '/',
+    component: Burst,
+  },
+  {
+    path: '/overview',
     component: Overview,
   },
   {
@@ -114,12 +118,12 @@ const Header = withRouter(({ history, location }) => {
   return (
     <header>
       <a className="logo" href="https://github.com/wbkd/react-flow">
-        React Flow Dev
+        Burst Query Test
       </a>
       <select defaultValue={location.pathname} onChange={onChange}>
         {routes.map((route) => (
           <option value={route.path} key={route.path}>
-            {route.path === '/' ? 'overview' : route.path.substr(1, route.path.length)}
+            {route.path === '/' ? 'burstquery' : route.path.substr(1, route.path.length)}
           </option>
         ))}
       </select>

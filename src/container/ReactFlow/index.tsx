@@ -82,7 +82,7 @@ export interface ReactFlowProps extends Omit<HTMLAttributes<HTMLDivElement>, 'on
   connectionLineType?: ConnectionLineType;
   connectionLineStyle?: CSSProperties;
   connectionLineComponent?: ConnectionLineComponent;
-  deleteKeyCode?: KeyCode;
+  deleteKeyCode?: KeyCode | Array<KeyCode>;
   selectionKeyCode?: KeyCode;
   multiSelectionKeyCode?: KeyCode;
   zoomActivationKeyCode?: KeyCode;
@@ -142,7 +142,7 @@ const ReactFlow = ({
   connectionLineType = ConnectionLineType.Bezier,
   connectionLineStyle,
   connectionLineComponent,
-  deleteKeyCode = 'Backspace',
+  deleteKeyCode = ['Backspace', 'Delete'],
   selectionKeyCode = 'Shift',
   multiSelectionKeyCode = 'Meta',
   zoomActivationKeyCode = 'Meta',
