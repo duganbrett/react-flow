@@ -75,7 +75,8 @@ const Handle: FunctionComponent<HandleProps & Omit<HTMLAttributes<HTMLDivElement
 
   const handleClasses = cc([
     'react-flow__handle',
-    `react-flow__handle-${position}`,
+    field ?  `react-flow__handle-field-${position}` : `react-flow__handle-${position}`,
+    ...(field ?  ['react-flow__handle-field'] : []),
     'nodrag',
     className,
     {

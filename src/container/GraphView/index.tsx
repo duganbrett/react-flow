@@ -30,6 +30,8 @@ export interface GraphViewProps extends Omit<ReactFlowProps, 'onSelectionChange'
 const GraphView = ({
   nodeTypes,
   edgeTypes,
+  onAddField,
+  onRemoveField,
   onMove,
   onMoveStart,
   onMoveEnd,
@@ -238,6 +240,8 @@ const GraphView = ({
     >
       <NodeRenderer
         nodeTypes={nodeTypes}
+        onAddField={onAddField}
+        onRemoveField={onRemoveField}
         onElementClick={onElementClick}
         onNodeMouseEnter={onNodeMouseEnter}
         onNodeMouseMove={onNodeMouseMove}

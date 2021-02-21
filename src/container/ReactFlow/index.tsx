@@ -51,6 +51,8 @@ const defaultEdgeTypes = {
 
 export interface ReactFlowProps extends Omit<HTMLAttributes<HTMLDivElement>, 'onLoad'> {
   elements: Elements;
+  onAddField?:(event: MouseEvent, element: Node | Edge) => void;
+  onRemoveField?:(event: MouseEvent, element: Node | Edge) => void;
   onElementClick?: (event: MouseEvent, element: Node | Edge) => void;
   onElementsRemove?: (elements: Elements) => void;
   onNodeMouseEnter?: (event: MouseEvent, node: Node) => void;
@@ -116,6 +118,8 @@ const ReactFlow = ({
   className,
   nodeTypes = defaultNodeTypes,
   edgeTypes = defaultEdgeTypes,
+  onAddField,
+  onRemoveField,
   onElementClick,
   onLoad,
   onMove,
@@ -183,6 +187,8 @@ const ReactFlow = ({
     <div {...rest} className={reactFlowClasses}>
       <Wrapper>
         <GraphView
+          onAddField={onAddField}
+          onRemoveField={onRemoveField}
           onLoad={onLoad}
           onMove={onMove}
           onMoveStart={onMoveStart}
