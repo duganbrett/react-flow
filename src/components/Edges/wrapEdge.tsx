@@ -36,6 +36,8 @@ export default (EdgeComponent: ComponentType<EdgeProps>) => {
     sourceHandleId,
     targetHandleId,
     handleEdgeUpdate,
+    startArrowHeadType,
+    markerStartId,
     onConnectEdge,
   }: WrapEdgeProps) => {
     const addSelectedElements = useStoreActions((actions) => actions.addSelectedElements);
@@ -84,7 +86,7 @@ export default (EdgeComponent: ComponentType<EdgeProps>) => {
     );
 
     const handleEdgeUpdater = useCallback(
-      (event: React.MouseEvent<SVGGElement, MouseEvent>, isSourceHandle: boolean) => {
+      (event: React.MouseEvent<SVGGElement, MouseEvent>, isSourceHandle: boolean, isUniversal: boolean) => {
         const nodeId = isSourceHandle ? target : source;
         const handleId = isSourceHandle ? targetHandleId : sourceHandleId;
         const isValidConnection = () => true;
@@ -98,6 +100,7 @@ export default (EdgeComponent: ComponentType<EdgeProps>) => {
           setPosition,
           onConnectEdge,
           isTarget,
+          isUniversal,
           isValidConnection,
           connectionMode
         );
@@ -107,16 +110,16 @@ export default (EdgeComponent: ComponentType<EdgeProps>) => {
 
     const onEdgeUpdaterSourceMouseDown = useCallback(
       (event: React.MouseEvent<SVGGElement, MouseEvent>): void => {
-        handleEdgeUpdater(event, true);
+        handleEdgeUpdater(event, true, type === 'target/source');
       },
-      [id, source, sourceHandleId, handleEdgeUpdater]
+      [id, source, sourceHandleId, handleEdgeUpdater, type]
     );
 
     const onEdgeUpdaterTargetMouseDown = useCallback(
       (event: React.MouseEvent<SVGGElement, MouseEvent>): void => {
-        handleEdgeUpdater(event, false);
+        handleEdgeUpdater(event, false, type === 'target/source');
       },
-      [id, target, targetHandleId, handleEdgeUpdater]
+      [id, target, targetHandleId, handleEdgeUpdater, type]
     );
 
     const onEdgeUpdaterMouseEnter = useCallback(() => setUpdating(true), [setUpdating]);
@@ -159,6 +162,7 @@ export default (EdgeComponent: ComponentType<EdgeProps>) => {
           data={data}
           style={style}
           arrowHeadType={arrowHeadType}
+          startArrowHeadType={startArrowHeadType}
           sourceX={sourceX}
           sourceY={sourceY}
           targetX={targetX}
@@ -166,6 +170,7 @@ export default (EdgeComponent: ComponentType<EdgeProps>) => {
           sourcePosition={sourcePosition}
           targetPosition={targetPosition}
           markerEndId={markerEndId}
+          markerStartId={markerStartId}
           sourceHandleId={sourceHandleId}
           targetHandleId={targetHandleId}
         />

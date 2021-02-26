@@ -29,6 +29,7 @@ function checkElementBelowIsValid(
   event: MouseEvent,
   connectionMode: ConnectionMode,
   isTarget: boolean,
+  isUniversal: boolean,
   nodeId: ElementId,
   handleId: ElementId | null,
   isValidConnection: ValidConnectionFunc
@@ -36,6 +37,7 @@ function checkElementBelowIsValid(
   const elementBelow = document.elementFromPoint(event.clientX, event.clientY);
   const elementBelowIsTarget = elementBelow?.classList.contains('target') || false;
   const elementBelowIsSource = elementBelow?.classList.contains('source') || false;
+
 
   const result: Result = {
     elementBelow,
@@ -46,17 +48,19 @@ function checkElementBelowIsValid(
 
   if (elementBelow && (elementBelowIsTarget || elementBelowIsSource)) {
     result.isHoveringHandle = true;
-
-    // in strict mode we don't allow target to target or source to source connections
+    const elementBelowHandleId = elementBelow.getAttribute('data-handleid');
+    // in strict mode we don't allow target to target or source to source connections 
     const isValid =
       connectionMode === ConnectionMode.Strict
-        ? (isTarget && elementBelowIsSource) || (!isTarget && elementBelowIsTarget)
+      // This prevents same node connections (isUniversal && String(nodeId) !== elementBelow?.getAttribute('data-nodeid'))
+      // Self referencing tables exist though so for now we'll prevent same handle connections
+        ? (isTarget && elementBelowIsSource) || (!isTarget && elementBelowIsTarget) || (isUniversal && String(handleId) !== elementBelowHandleId)
         : true;
 
     if (isValid) {
       const elementBelowNodeId = elementBelow.getAttribute('data-nodeid');
-      const elementBelowHandleId = elementBelow.getAttribute('data-handleid');
-      const connection: Connection = isTarget
+
+      const connection: Connection = isTarget || isUniversal
         ? {
             source: elementBelowNodeId,
             sourceHandle: elementBelowHandleId,
@@ -91,6 +95,7 @@ export function onMouseDown(
   setPosition: SetPosition,
   onConnect: OnConnectFunc,
   isTarget: boolean,
+  isUniversal: boolean,
   isValidConnection: ValidConnectionFunc,
   connectionMode: ConnectionMode,
   onConnectStart?: OnConnectStartFunc,
@@ -125,6 +130,7 @@ export function onMouseDown(
       event,
       connectionMode,
       isTarget,
+      isUniversal,
       nodeId,
       handleId,
       isValidConnection
@@ -148,6 +154,7 @@ export function onMouseDown(
       event,
       connectionMode,
       isTarget,
+      isUniversal,
       nodeId,
       handleId,
       isValidConnection

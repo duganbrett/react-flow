@@ -32,7 +32,7 @@ const Handle: FunctionComponent<HandleProps & Omit<HTMLAttributes<HTMLDivElement
   const connectionMode = useStoreState((state) => state.connectionMode);
   const handleId = id || null;
   const isTarget = type === 'target';
-
+  const isUniversal = type === 'target/source'
   const onConnectExtended = useCallback(
     (params: Connection) => {
       onConnectAction?.(params);
@@ -51,6 +51,7 @@ const Handle: FunctionComponent<HandleProps & Omit<HTMLAttributes<HTMLDivElement
         (setPosition as unknown) as SetPosition,
         onConnectExtended,
         isTarget,
+        isUniversal,
         isValidConnection,
         connectionMode,
         onConnectStart,

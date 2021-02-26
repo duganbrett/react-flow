@@ -19,6 +19,8 @@ export default (NodeComponent: ComponentType<NodeComponentProps>) => {
     selected,
     // nodes,
     onAddField,
+    onTitleChange,
+    onFieldChange,
     onRemoveField,
     onClick,
     onMouseEnter,
@@ -236,8 +238,16 @@ export default (NodeComponent: ComponentType<NodeComponentProps>) => {
         selectable: isSelectable,
       },
     ]);
-
-
+    const handleFieldChange = useCallback((event: React.ChangeEvent) => {
+      if(onFieldChange) {
+        onFieldChange(event, node)
+      }
+    }, [onFieldChange, node])
+    const handleTitleChange = useCallback((event: React.ChangeEvent) => {
+      if(onTitleChange) {
+        onTitleChange(event, node)
+      }
+    }, [onTitleChange, node])
     return (
       <DraggableCore
         onStart={onDragStart}
@@ -273,7 +283,9 @@ export default (NodeComponent: ComponentType<NodeComponentProps>) => {
               targetPosition={targetPosition}
               isDragging={isDragging}
               onAddField={addField}
+              onTitleChange={handleTitleChange}
               onRemoveField={removeField}
+              onFieldChange={handleFieldChange}
             />
           </Provider>
         </div>

@@ -32,6 +32,8 @@ const GraphView = ({
   edgeTypes,
   onAddField,
   onRemoveField,
+  onFieldChange,
+  onTitleChange,
   onMove,
   onMoveStart,
   onMoveEnd,
@@ -240,6 +242,7 @@ const GraphView = ({
     >
       <NodeRenderer
         nodeTypes={nodeTypes}
+        onFieldChange={onFieldChange}
         onAddField={onAddField}
         onRemoveField={onRemoveField}
         onElementClick={onElementClick}
@@ -248,6 +251,7 @@ const GraphView = ({
         onNodeMouseLeave={onNodeMouseLeave}
         onNodeContextMenu={onNodeContextMenu}
         onNodeDragStop={onNodeDragStop}
+        onTitleChange={onTitleChange}
         onNodeDrag={onNodeDrag}
         onNodeDragStart={onNodeDragStart}
         selectNodesOnDrag={selectNodesOnDrag}
