@@ -103,7 +103,7 @@ export function onMouseDown(
   onConnectEnd?: OnConnectEndFunc
 ): void {
   const reactFlowNode = (event.target as Element).closest('.react-flow');
-
+  
   if (!reactFlowNode) {
     return;
   }
@@ -116,6 +116,7 @@ export function onMouseDown(
     x: event.clientX - containerBounds.left,
     y: event.clientY - containerBounds.top,
   });
+
 
   setConnectionNodeId({ connectionNodeId: nodeId, connectionHandleId: handleId, connectionHandleType: handleType });
   onConnectStart?.(event, { nodeId, handleId, handleType });
