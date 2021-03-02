@@ -56,7 +56,8 @@ const Handle: FunctionComponent<HandleProps & Omit<HTMLAttributes<HTMLDivElement
         connectionMode,
         onConnectStart,
         onConnectStop,
-        onConnectEnd
+        onConnectEnd,
+        field
       );
     },
     [
@@ -71,6 +72,7 @@ const Handle: FunctionComponent<HandleProps & Omit<HTMLAttributes<HTMLDivElement
       onConnectStart,
       onConnectStop,
       onConnectEnd,
+      field
     ]
   );
 
@@ -92,6 +94,7 @@ const Handle: FunctionComponent<HandleProps & Omit<HTMLAttributes<HTMLDivElement
       data-handleid={handleId}
       data-nodeid={nodeId}
       data-handlepos={position}
+      {...(field && {'data-handletype': 'field'})}
       className={handleClasses}
       onMouseDown={onMouseDownHandler}
       {...rest}

@@ -18,6 +18,7 @@ export default (NodeComponent: ComponentType<NodeComponentProps>) => {
     yPos,
     selected,
     // nodes,
+    isValidConnection,
     onAddField,
     onTitleChange,
     onFieldChange,
@@ -293,6 +294,7 @@ export default (NodeComponent: ComponentType<NodeComponentProps>) => {
               type={type}
               xPos={xPos}
               yPos={yPos}
+              isValidConnection={isValidConnection}
               selected={selected}
               isConnectable={isConnectable}
               sourcePosition={sourcePosition}

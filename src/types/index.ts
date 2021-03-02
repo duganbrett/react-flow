@@ -179,6 +179,7 @@ export interface NodeProps<T = any> {
   data: T;
   selected: boolean;
   isConnectable: boolean;
+  isValidConnection?: (connection: Connection) => boolean;
   xPos?: number;
   yPos?: number;
   targetPosition?: Position;
@@ -211,6 +212,7 @@ export interface NodeComponentProps<T = any> {
   onNodeDragStop?: (node: Node) => void;
   style?: CSSProperties;
   isDragging?: boolean;
+  isValidConnection?: (connection: Connection) => boolean;
 }
 
 export interface WrapNodeProps<T = any> {
@@ -226,6 +228,7 @@ export interface WrapNodeProps<T = any> {
   isDraggable: boolean;
   isConnectable: boolean;
   selectNodesOnDrag: boolean;
+  isValidConnection?: (connection: Connection) => boolean;
   onAddField?: (event: ReactMouseEvent, element: Node | Edge) => void;
   onRemoveField?: (event: ReactMouseEvent, element: Node | Edge) => void;
   onFieldChange?: (event: ReactChangeEvent, element: Node | Edge) => void;
@@ -283,6 +286,8 @@ export interface Connection {
   target: ElementId | null;
   sourceHandle: ElementId | null;
   targetHandle: ElementId | null;
+  targetField?: boolean;
+  sourceField?: boolean;
 }
 
 export enum ConnectionMode {

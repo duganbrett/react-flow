@@ -32,7 +32,8 @@ function checkElementBelowIsValid(
   isUniversal: boolean,
   nodeId: ElementId,
   handleId: ElementId | null,
-  isValidConnection: ValidConnectionFunc
+  isValidConnection: ValidConnectionFunc,
+  field?: boolean
 ) {
   const elementBelow = document.elementFromPoint(event.clientX, event.clientY);
   const elementBelowIsTarget = elementBelow?.classList.contains('target') || false;
@@ -49,6 +50,7 @@ function checkElementBelowIsValid(
   if (elementBelow && (elementBelowIsTarget || elementBelowIsSource)) {
     result.isHoveringHandle = true;
     const elementBelowHandleId = elementBelow.getAttribute('data-handleid');
+    const elementIsField = elementBelow.getAttribute('data-handletype');
     // in strict mode we don't allow target to target or source to source connections 
     const isValid =
       connectionMode === ConnectionMode.Strict
@@ -66,12 +68,16 @@ function checkElementBelowIsValid(
             sourceHandle: elementBelowHandleId,
             target: nodeId,
             targetHandle: handleId,
+            sourceField: Boolean(elementIsField),
+            targetField: field
           }
         : {
             source: nodeId,
             sourceHandle: handleId,
             target: elementBelowNodeId,
             targetHandle: elementBelowHandleId,
+            sourceField: Boolean(elementIsField),
+            targetField: field
           };
 
       result.connection = connection;
@@ -100,7 +106,8 @@ export function onMouseDown(
   connectionMode: ConnectionMode,
   onConnectStart?: OnConnectStartFunc,
   onConnectStop?: OnConnectStopFunc,
-  onConnectEnd?: OnConnectEndFunc
+  onConnectEnd?: OnConnectEndFunc,
+  field?: boolean
 ): void {
   const reactFlowNode = (event.target as Element).closest('.react-flow');
   
@@ -134,7 +141,8 @@ export function onMouseDown(
       isUniversal,
       nodeId,
       handleId,
-      isValidConnection
+      isValidConnection,
+      field
     );
 
     if (!isHoveringHandle) {
@@ -158,7 +166,8 @@ export function onMouseDown(
       isUniversal,
       nodeId,
       handleId,
-      isValidConnection
+      isValidConnection,
+      field
     );
 
     onConnectStop?.(event);

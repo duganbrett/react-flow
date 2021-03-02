@@ -2,7 +2,7 @@ import React, { memo, useMemo, ComponentType, MouseEvent, ChangeEvent } from 're
 
 import { getNodesInside } from '../../utils/graph';
 import { useStoreState, useStoreActions } from '../../store/hooks';
-import { Node, NodeTypesType, WrapNodeProps, Edge } from '../../types';
+import { Node, NodeTypesType, WrapNodeProps, Edge, Connection } from '../../types';
 interface NodeRendererProps {
   nodeTypes: NodeTypesType;
   selectNodesOnDrag: boolean;
@@ -18,6 +18,7 @@ interface NodeRendererProps {
   onNodeDragStart?: (event: MouseEvent, node: Node) => void;
   onNodeDrag?: (event: MouseEvent, node: Node) => void;
   onNodeDragStop?: (event: MouseEvent, node: Node) => void;
+  isValidConnection?: (connection: Connection) => boolean;
   snapToGrid: boolean;
   snapGrid: [number, number];
   onlyRenderVisibleElements: boolean;
@@ -111,6 +112,7 @@ const NodeRenderer = (props: NodeRendererProps) => {
             isSelectable={isSelectable}
             isConnectable={isConnectable}
             resizeObserver={resizeObserver}
+            isValidConnection={props.isValidConnection}
           />
         );
       })}
