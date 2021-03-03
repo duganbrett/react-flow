@@ -131,6 +131,7 @@ export interface WrapEdgeProps<T = any> {
   onConnectEdge: OnConnectFunc;
 }
 
+
 export interface EdgeProps<T = any> {
   id: ElementId;
   source: ElementId;
@@ -143,6 +144,7 @@ export interface EdgeProps<T = any> {
   animated?: boolean;
   sourcePosition: Position;
   targetPosition: Position;
+  subconnections?: Array<Connection>;
   label?: string;
   labelStyle?: CSSProperties;
   labelShowBg?: boolean;
